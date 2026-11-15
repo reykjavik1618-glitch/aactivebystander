@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>こんなとき、どうする？｜回答メモ</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@700&family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#f6f2fa; --card:#ffffff; --ink:#2b2335; --sub:#6a6175;
+    --deep:#3b2560; --purple:#6b4ea0; --soft:#e4daf1; --hl:#ddd0ee; --line:#d5c6ea;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:'Noto Sans JP',sans-serif;line-height:1.7;-webkit-text-size-adjust:100%}
+  header{background:var(--deep);color:#fff;padding:28px 20px 24px}
+  header .tag{font-size:12px;letter-spacing:.15em;color:#d5c6ea;font-weight:700;margin:0}
+  header h1{font-family:'Zen Maru Gothic',sans-serif;font-size:28px;margin:6px 0 10px;line-height:1.3}
+  header p{margin:0;font-size:14px;color:#e4daf1}
+  main{max-width:640px;margin:0 auto;padding:16px 16px 48px}
+  .howto{background:var(--card);border-radius:16px;padding:16px 18px;margin:4px 0 20px;border:1px solid var(--soft)}
+  .howto ol{margin:0;padding-left:1.3em;font-size:14px}
+  .howto li{margin:2px 0}
+  .howto .note{margin:10px 0 0;font-size:13px;color:var(--sub)}
+  .card{background:var(--card);border-radius:20px;margin:0 0 18px;overflow:hidden;box-shadow:0 1px 0 var(--soft)}
+  .card .head{display:flex;align-items:center;gap:12px;background:var(--purple);color:#fff;padding:12px 16px}
+  .card .num{font-family:'Zen Maru Gothic',sans-serif;font-size:30px;line-height:1;min-width:24px;text-align:center}
+  .card .ttl{font-weight:700;font-size:16px}
+  .card .body{padding:16px}
+  .story{margin:0 0 14px;font-size:15px}
+  .story mark{background:var(--hl);color:inherit;padding:0 2px}
+  .q{font-family:'Zen Maru Gothic',sans-serif;color:var(--purple);font-size:16px;margin:0 0 8px}
+  textarea{width:100%;min-height:120px;border:2px solid var(--line);border-radius:12px;padding:12px;font:inherit;font-size:16px;color:var(--ink);background:#fbf9fd;resize:vertical}
+  textarea:focus{outline:none;border-color:var(--purple);background:#fff}
+  .status{font-size:12px;color:var(--sub);margin-top:6px;min-height:1em}
+  .foot{text-align:center;font-size:12px;color:var(--sub);margin-top:24px}
+  .clear{display:block;margin:28px auto 0;background:none;border:1px solid var(--line);color:var(--sub);border-radius:999px;padding:8px 18px;font:inherit;font-size:13px}
+  .progress{position:sticky;top:0;z-index:2;background:var(--bg);padding:10px 0 8px;font-size:13px;color:var(--deep);font-weight:700}
+  .bar{height:6px;background:var(--soft);border-radius:3px;margin-top:6px;overflow:hidden}
+  .bar i{display:block;height:100%;width:0;background:var(--purple);transition:width .3s}
+</style>
+</head>
+<body>
+<header>
+  <p class="tag">パープルリボン運動2026｜アクティブ・バイスタンダー</p>
+  <h1>こんなとき、どうする？</h1>
+  <p>5つの場面について、自分ならどうするかをメモしよう</p>
+</header>
+<main>
+  <div class="howto">
+    <ol>
+      <li>まず一人で、5問すべてに答えを書く</li>
+      <li>5人グループに分かれて、この画面を見せ合いながらシェア</li>
+    </ol>
+    <p class="note">「何もしない」以外なら、小さなことでも全部OK。いくつ書いてもかまいません。<br>書いた内容はこのスマホの中だけに保存され、誰にも送信されません。</p>
+  </div>
+
+  <div class="progress"><span id="count">0</span> / 5 問 回答済み<div class="bar"><i id="bar"></i></div></div>
+
+  <section id="cards"></section>
+
+  <button class="clear" id="clear" type="button">回答をすべて消す</button>
+  <p class="foot">國學院大學｜講師：鈴木亜矢子</p>
+</main>
+
+<script>
+const scenarios = [
+  {t:"サークルの飲み会", s:"サークルの先輩（男性）との飲み会に、友達のAさん（女性）と参加しました。<mark>Aさんはかなり酔っていて、うまく会話ができる状態ではありません。</mark>先輩はそんなAさんの体を触ったり、「家に来ない？」と執拗に誘ったりしています。"},
+  {t:"混雑した電車", s:"大学へ行く電車の中。車内はかなり混雑していて、身動きが取れません。目の前の女性の様子がおかしいことに気づきました。<mark>どうやら痴漢に遭っているようですが、声を上げられないようです。</mark>"},
+  {t:"友人との会話", s:"友人数人と話していたら、Bさんに彼女ができた話に。Cさんが「もうキスしたの？いつ？どこで？」と<mark>性的なことを聞き出そうとしています。</mark>Bさんは不快な顔で黙っていますが、Cさんは気づかず質問を続けようとしています。"},
+  {t:"グループLINE", s:"サークルのグループLINEに、飲み会で酔って寝てしまったDさんの写真が「やばいw」というコメントつきで投稿されました。スタンプで反応している人もいます。<mark>Dさんはまだ気づいていないようです。</mark>"},
+  {t:"友達の彼氏", s:"仲のいい友達のFさん（女性）。最近、彼氏から「今どこ？誰といるの？」と何度も連絡が来て、すぐ返さないと怒られるそうです。位置情報の共有も求められています。Fさんは「愛されてるってことだよね」と笑っていますが、<mark>そのうちサークルにも顔を出さなくなり、授業も休みがちです。</mark>"}
+];
+const KEY = "bystander-memo-2026-";
+const store = {
+  get(k){ try{ return localStorage.getItem(KEY+k) || ""; }catch(e){ return ""; } },
+  set(k,v){ try{ localStorage.setItem(KEY+k, v); return true; }catch(e){ return false; } }
+};
+const wrap = document.getElementById("cards");
+scenarios.forEach((sc,i)=>{
+  const el = document.createElement("article");
+  el.className = "card";
+  el.innerHTML = `
+    <div class="head"><span class="num">${i+1}</span><span class="ttl">${sc.t}</span></div>
+    <div class="body">
+      <p class="story">${sc.s}</p>
+      <p class="q">あなたなら、どうする？</p>
+      <textarea id="a${i}" placeholder="例：トイレに行こうと誘う"></textarea>
+      <div class="status" id="st${i}"></div>
+    </div>`;
+  wrap.appendChild(el);
+  const ta = el.querySelector("textarea");
+  ta.value = store.get(i);
+  let timer;
+  ta.addEventListener("input", ()=>{
+    clearTimeout(timer);
+    timer = setTimeout(()=>{
+      const ok = store.set(i, ta.value);
+      document.getElementById("st"+i).textContent = ok ? "保存しました" : "※この画面を閉じると消えるので、閉じないでください";
+      update();
+    }, 400);
+  });
+});
+function update(){
+  const n = scenarios.filter((_,i)=>document.getElementById("a"+i).value.trim()).length;
+  document.getElementById("count").textContent = n;
+  document.getElementById("bar").style.width = (n/5*100)+"%";
+}
+update();
+document.getElementById("clear").addEventListener("click", ()=>{
+  if(!confirm("書いた回答をすべて消しますか？")) return;
+  scenarios.forEach((_,i)=>{ store.set(i,""); document.getElementById("a"+i).value=""; document.getElementById("st"+i).textContent=""; });
+  update();
+});
+</script>
+</body>
+</html>
